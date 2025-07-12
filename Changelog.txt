@@ -1,0 +1,2 @@
+* [F - 12/07/2025]: Changelog.txt :
+    - Inizializzato progetto
