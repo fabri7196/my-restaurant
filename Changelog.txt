@@ -1,3 +1,8 @@
+* [F - 13/07/2025]: Changelog.txt, User.java, Credentials.java, AuthConfiguration.java : 
+    - Creati i modelli User e Credentials per la gestione della registrazione degli utenti
+    - Creati anche i rispettivi: service,repository
+    - AuthConfiguration.java per la gestione della sicurezza delle rotte ecc
+
 * [F - 13/07/2025]: Changelog.txt, messages.properties, application.properties :
     - Settaggio properties e file messaggi di errori 
 
