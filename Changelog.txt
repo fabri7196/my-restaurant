@@ -1,2 +1,5 @@
+* [F - 13/07/2025]: Changelog.txt, messages.properties, application.properties :
+    - Settaggio properties e file messaggi di errori 
+
 * [F - 12/07/2025]: Changelog.txt :
     - Inizializzato progetto
