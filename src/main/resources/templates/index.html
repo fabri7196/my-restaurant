@@ -1,0 +1,53 @@
+<html>
+
+<head th:replace="fragments/common.html :: headerfiles(title='Home | MyRestaurant')"></head>
+
+<body>
+	<header th:replace="fragments/common.html :: navbar"></header>
+	<!-- END NAV -->
+	<div class="container_body container">
+		<section class="hero is-medium"
+			th:style="'background-image: url(/images/image_index.jpg); background-size:cover; background-position:center;'">
+			<div class="overlay">
+				<div class="hero-body">
+
+					<p class="title has-text-white">
+						Benvenuto,
+					</p>
+					<p class="subtitle has-text-white">
+						Prenota ora il tuo tavolo
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="section p-4">
+			<div class="box is-danger">
+				<p class="title is-5 has-text-white">Le nostre offerte</p>
+				<p class="subtitle is-6 has-text-white">Prenota subito il tuo tavolo e vieni a trovarci</p>
+			</div>
+			<section class="section notification p-4">
+				<div class="media is-mobile box">
+					<div class="media-left">
+						<p class="title is-5">Pranzo</p>
+						<p class="subtitle is-6">Dalle ore 12, menu alla carta e fisso</p>
+					</div>
+				</div>
+				<div class="media box">
+					<div class="media-left">
+						<p class="title is-5">Aperitivo</p>
+						<p class="subtitle is-6">Dalle ore 18, spritz e buffet illimitato</p>
+					</div>
+				</div>
+				<div class="media box">
+					<div class="media-left">
+						<p class="title is-5">Cena</p>
+						<p class="subtitle is-6">Dalle ore 20, menu alla carta</p>
+					</div>
+				</div>
+			</section>
+		</section>
+	</div>
+	<footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

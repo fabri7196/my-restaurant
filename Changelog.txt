@@ -1,3 +1,11 @@
+* [F - 14/07/2025]: Changelog.txt, User.java, Credentials.java, AuthConfiguration.java, index.html e altri : 
+    - index.html per tasto scopri e image_index
+    - introdotte formLogin, formRegisterUser e registrationSuccessful
+    - introdotto style.css e common.html per stile comune del sito web
+    - AuthenticationController.java gestita logica registrazione, login, successo registrazione con validazione
+        dati e visulizzazione index
+    - UserValidator e CredentialsValidator settato il messages.properties
+
 * [F - 13/07/2025]: Changelog.txt, User.java, Credentials.java, AuthConfiguration.java : 
     - Creati i modelli User e Credentials per la gestione della registrazione degli utenti
     - Creati anche i rispettivi: service,repository

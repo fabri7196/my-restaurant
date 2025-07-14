@@ -1,6 +1,5 @@
 package it.uniroma3.siw.my_restaurant.model;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +27,7 @@ public class Credentials {
     private String username;
     
     @NotBlank
-    @Size(min = 8, message = "La password deve contenere almeno 8 caratteri.")
+    @Size(min = 8, message = "*La password deve contenere almeno 8 caratteri.")
     private String password;
 
     private String role;
