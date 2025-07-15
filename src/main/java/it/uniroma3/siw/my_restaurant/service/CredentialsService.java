@@ -16,7 +16,7 @@ public class CredentialsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private CredentialsRepository credentialsRepository;
+    CredentialsRepository credentialsRepository;
 
     CredentialsService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -44,9 +44,9 @@ public class CredentialsService {
         return this.credentialsRepository.save(credentials);
     }
 
-    //CANCELLAZIONE CREDENZIALI, ne segue anche la cancellazione dello User associato
     @Transactional
-    public void deleteCredentials(String username){
-        this.credentialsRepository.delete(this.credentialsRepository.findByUsername(username).get());
+    public void deleteUser(String username){
+        Credentials credentials = this.credentialsRepository.findByUsername(username).get();
+        this.credentialsRepository.delete(credentials);
     }
 }

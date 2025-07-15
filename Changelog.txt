@@ -1,4 +1,10 @@
 * [F - 15/07/2025]: Changelog.txt : 
+    - MainController gestita rotta /home
+    - Create viste dashboard per la home (differenti per default_user e admin)
+    - UserController, UserService e UserRepository
+    - CredentialsService
+
+* [F - 15/07/2025]: Changelog.txt : 
     - aggiunte classi Menu, Restaurant, Table (Service,Repository e Controller)
 
 * [F - 15/07/2025]: Changelog.txt : 
