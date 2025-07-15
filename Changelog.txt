@@ -1,4 +1,7 @@
 * [F - 15/07/2025]: Changelog.txt : 
+    - aggiunte classi Menu, Restaurant, Table (Service,Repository e Controller)
+
+* [F - 15/07/2025]: Changelog.txt : 
     - aggiunte immagini applicazione e rimossa vecchia.
 
 * [F - 14/07/2025]: Changelog.txt, User.java, Credentials.java, AuthConfiguration.java, index.html e altri : 
