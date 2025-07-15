@@ -1,0 +1,24 @@
+<html>
+
+<head th:replace="fragments/common.html :: headerfiles(title='Prenotazione effettuata | MyRestaurant')"></head>
+
+<body>
+	<header th:replace="fragments/common.html :: navbar"></header>
+	<!-- END NAV -->
+	<div class="container_body container">
+		<section class="hero is-medium is-success">
+			<div class="hero-body">
+				<p class="title">
+					Prenotazion effettutata!
+				</p>
+				<p class="subtitle">
+					Abbiamo ricevuto la tua prenotazione
+				</p>
+				<a class="button is-rounded is-white" th:href="@{/home}">Vai alla dashboard</a>
+			</div>
+		</section>
+	</div>
+	<footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

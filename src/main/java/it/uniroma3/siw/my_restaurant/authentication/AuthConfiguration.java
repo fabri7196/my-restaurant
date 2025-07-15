@@ -56,6 +56,8 @@ import javax.sql.DataSource;
                         .requestMatchers(HttpMethod.GET, "/", "/home", "/register", "/css/**", "/images/**").permitAll()
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                         .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/reservation").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/reservation").authenticated()
                         .requestMatchers(HttpMethod.GET).hasAnyAuthority(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.POST).hasAnyAuthority(ADMIN_ROLE)
                         // tutti gli utenti autenticati possono accedere alle pagine rimanenti 

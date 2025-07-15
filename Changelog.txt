@@ -1,4 +1,9 @@
 * [F - 15/07/2025]: Changelog.txt : 
+    - Gestita parte Reservetion e introdotta form per user_DEFAULT per prenotare e validazione dati
+    - AuthConfiguration permessi per rotta '/reservation' solo utenti autenticati
+    - Aggiunta vista se la prenotazione avviene con successo
+
+* [F - 15/07/2025]: Changelog.txt : 
     - MainController gestita rotta /home
     - Create viste dashboard per la home (differenti per default_user e admin)
     - UserController, UserService e UserRepository
