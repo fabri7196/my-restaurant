@@ -38,16 +38,24 @@ public class ReservationService {
 		return this.reservationRepository.findById(id).get();
 	}
 
-	public List<Reservation> getAllReservations() {
+	public List<Reservation> findAllReservations() {
 		return this.reservationRepository.findAll();
+	}
+
+	public Long countAllReservationsByDateOfReservation(LocalDate dateOfReservation) {
+		List<Reservation> allReservationDay = this.reservationRepository.findByDateOfReservation(dateOfReservation);
+		if (allReservationDay == null || allReservationDay.isEmpty())
+			return Long.valueOf(0);
+		
+		return Long.valueOf(allReservationDay.size());
+	}
+
+	public List<Reservation> findAllReservationsOfUser(User user) {
+		return this.reservationRepository.findByUser(user);	
 	}
 	
 	public Long countAllReservations() {
 		return this.reservationRepository.count();
-	}
-
-	public List<Reservation> getAllReservationsOfUser(User user) {
-		return this.reservationRepository.findByUser(user);	
 	}
 
 	public boolean isReservationPossible(LocalDate date, String place, int numberOfPeopleToAdd) {

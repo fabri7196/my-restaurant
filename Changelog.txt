@@ -1,3 +1,8 @@
+* [F - 16/07/2025]: Changelog.txt, dashboard.html, MainController.java, ReservationService.java : 
+    - dashboard.html ADMIN modificata, ora come numero di prenotazioni vedi quelle della data corrente
+    - MainController.java viene passato al model il numero delle prenotazioni odierne
+    - ReservationService.java aggiunta funzione per contare tutte le prenotazioni di una determinata data
+
 * [F - 16/07/2025]: Changelog.txt, AuthConfiguration.java, ReservationController.java, showReservation.html, dashboard.html : 
     - Implementata funzionalità che permette a un utente registrato di vedere le sue prenotazioni
     - Aggiunta rotta a AuthConfiguration.java

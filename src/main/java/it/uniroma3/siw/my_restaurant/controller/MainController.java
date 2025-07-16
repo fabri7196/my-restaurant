@@ -1,6 +1,7 @@
 package it.uniroma3.siw.my_restaurant.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class MainController {
 
             if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
                 String formattedDate = new SimpleDateFormat("EEE, d MMM yyyy").format(new Date());
-                Long allReservation = this.reservationService.countAllReservations();
-                model.addAttribute("allReservation", allReservation);
+                Long allReservationForToday = this.reservationService.countAllReservationsByDateOfReservation(LocalDate.now());
+                model.addAttribute("allReservationForToday", allReservationForToday);
                 model.addAttribute("date", formattedDate);
                 return "/admin/dashboard.html";
             }
