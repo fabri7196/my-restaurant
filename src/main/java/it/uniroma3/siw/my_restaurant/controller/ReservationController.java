@@ -1,5 +1,7 @@
 package it.uniroma3.siw.my_restaurant.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -62,6 +64,17 @@ public class ReservationController {
 
 		model.addAttribute("loggedUser", credentials);
 		return "/user/formReservation.html";
+	}
+
+	@GetMapping("/user/allReservation")
+	public String getShowListAllReservationUser(Model model) {
+		UserDetails userDetails = this.globalController.getUser();
+		Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+		
+		List<Reservation> allReservation = this.reservationService.findAllReservationsOfUser(credentials.getUser());
+		model.addAttribute("reservationList", allReservation);
+		model.addAttribute("loggedUser", credentials);
+		return "/user/showReservation.html";
 	}
     
 }

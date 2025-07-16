@@ -1,3 +1,8 @@
+* [F - 16/07/2025]: Changelog.txt, AuthConfiguration.java, ReservationController.java, showReservation.html, dashboard.html : 
+    - Implementata funzionalità che permette a un utente registrato di vedere le sue prenotazioni
+    - Aggiunta rotta a AuthConfiguration.java
+    - dashboard aggiunta rotta per il link le mie prenotazioni
+
 * [F - 15/07/2025]: Changelog.txt : 
     - Gestita parte Reservetion e introdotta form per user_DEFAULT per prenotare e validazione dati
     - AuthConfiguration permessi per rotta '/reservation' solo utenti autenticati
