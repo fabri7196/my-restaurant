@@ -1,0 +1,54 @@
+<html>
+
+<head th:replace="fragments/common.html :: headerfiles(title='Profilo | MyRestaurant')"></head>
+
+<body>
+	<header th:replace="fragments/common.html :: navbar"></header>
+	<!-- END NAV -->
+	<div class="container_body container">
+		<section class="hero is-small is-info p-4">
+			<div class="hero-body">
+				<p class="title" th:text="'Ciao ' + ${loggedUser.user.name} + ','"></p>
+				<p class="subtitle">
+					Di seguito le informazioni registrate
+				</p>
+			</div>
+		</section>
+		<section class="section p-0">
+			<div class="box">
+				<p class="title is-5">Dettagli profilo</p>
+				<p class="subtitle is-6">Gestisci il tuo profilo da qui</p>
+				<div class="media p-3">
+					<div class="media-left">
+						<figure class="image is-128x128 profile-image">
+							<img class="is-rounded"
+								th:src="@{/images/avatar-svgrepo-com.svg}">
+						</figure>
+					</div>
+					<div class="media-content ml-4">
+						<div class="field">
+							<p th:text="${loggedUser.user.name + ' ' + loggedUser.user.surname}" class="title is-5">Nome utente
+							</p>
+						</div>
+						<div class="field">
+							<p class="title is-6">Username </p>
+							<p th:text="${loggedUser.username}" class="subtitle is-6">username</p>
+						</div>
+						<div class="field">
+							<p class="title is-6">Ruolo </p>
+							<p th:text="${loggedUser.role}" class="subtitle is-6">Amministratore</p>
+						</div>
+					</div>
+					<div class="media-right">
+                        <!-- th:href="@{/user/update}" -->
+						<a href="" class="button is-rounded is-danger">Modifica profilo</a>
+						<a th:href="@{/user/allReservation}" class="button is-rounded is-danger">Le mie prenotazioni</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

@@ -16,8 +16,11 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.my_restaurant.model.Credentials;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class UserController {
@@ -30,6 +33,16 @@ public class UserController {
 
     @Autowired 
     private CredentialsService credentialsService;
+
+    @GetMapping("/userProfile")
+    public String getUserProfile(Model model) {
+        UserDetails userDetails = this.globalController.getUser();
+        Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+        model.addAttribute("loggedUser", credentials);
+        
+        return "userProfile.html";
+    }
+    
 
     // @GetMapping("/AllUsers")
     // public String getUsers(Model model) {
