@@ -1,5 +1,7 @@
 package it.uniroma3.siw.my_restaurant.controller;
 
+import static it.uniroma3.siw.my_restaurant.model.Credentials.ADMIN_ROLE;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,7 @@ public class ReservationController {
 
 		if (!bindingResult.hasErrors()) {
             this.reservationService.save(reservation);
-			return "reservationSuccessful.html";
+			return "/user/reservationSuccessful.html";
 		}
 
 		model.addAttribute("loggedUser", credentials);
@@ -118,11 +120,28 @@ public class ReservationController {
 		if (!bindingResult.hasErrors()) {
 			updateReservation.setUser(credentials.getUser());
             this.reservationService.update(updateReservation, reservationId);
-			return "reservationSuccessful.html";
+			return "/user/reservationUpdateSuccessful.html";
 		}
 
 		model.addAttribute("loggedUser", credentials);
 		return "/user/updateReservation.html";
+	}
+
+	@GetMapping("/admin/allReservation")
+	public String getShowListAllReservations(Model model) {
+		UserDetails userDetails = this.globalController.getUser();
+		Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+
+		if(credentials.getRole().equals(ADMIN_ROLE))
+		{
+			List<Reservation> allReservation = this.reservationService.findAllReservations();
+			model.addAttribute("reservationList", allReservation);
+			model.addAttribute("loggedUser", credentials);
+
+			return "/admin/showAllReservation.html";
+		}
+		
+		return "redirect:/login";
 	}
     
 }

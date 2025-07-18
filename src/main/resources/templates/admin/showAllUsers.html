@@ -1,0 +1,50 @@
+<html>
+
+<head th:replace="fragments/common.html :: headerfiles(title='UtentiRegistrati | MyRestaurant')"></head>
+
+<body>
+	<header th:replace="fragments/common.html :: navbar"></header>
+	<!-- END NAV -->
+	<div class="container_body container">
+		<section class="hero is-small is-info p-4">
+			<div class="hero-body">
+				<p class="title">
+					Utenti registrati
+				</p>
+				<p class="subtitle">
+					Tutti gli utenti registrati
+				</p>
+			</div>
+		</section>
+
+		<section class="section p-0">
+			<div class="box prenotazioni-box">
+                <!-- th:href="@{'/admin/' + ${credential.user.id} + '/allPrenotazioni'}" -->
+				<a href="" th:each="user : ${users}" class="box user-item-box">
+					<div class="media">
+						<div class="media-left">
+							<div class="container">
+								<p class="title is-5"
+									th:text="${user.name + ' ' + user.surname}">Nome Cognome</p>
+								<p class="subtitle is-6 mb-0" th:text="${'Username: ' + user.credentials.username}">Username</p>
+                                <p class="subtitle is-6" th:text="${'Email: ' + user.email}">Email</p>
+							</div>
+						</div>
+						<div class="media-content has-text-right">
+                            <!-- th:action="@{'/admin/allUsers/'+ ${credential.username} + '/delete'}" -->
+							<form class="mt-3" method="post" action="">
+								<button type="submit" class="button is-rounded is-small is-danger">Cancella</button>
+							</form>
+						</div>
+						<div class="media-right">
+							<i class="fa-solid fa-chevron-right"></i>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+	</div>
+	<footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

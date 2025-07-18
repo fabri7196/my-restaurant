@@ -58,7 +58,7 @@ import javax.sql.DataSource;
                         .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reservation", "/user/allReservation", "/user/*/updateReservation", "/userProfile").authenticated()
                         .requestMatchers(HttpMethod.POST, "/reservation", "/user/*/delete", "/user/*/updateReservation").authenticated()
-                        .requestMatchers(HttpMethod.GET).hasAnyAuthority(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/admin/allReservation", "/admin/allUsers").hasAnyAuthority(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.POST).hasAnyAuthority(ADMIN_ROLE)
                         // tutti gli utenti autenticati possono accedere alle pagine rimanenti 
                         .anyRequest().authenticated()).formLogin(login -> login

@@ -42,7 +42,7 @@ public class UserService {
         }
 
         return result;
-        }
+    }
 
     @Transactional
     public void deleteUser(Long id){

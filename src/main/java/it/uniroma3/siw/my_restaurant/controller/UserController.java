@@ -11,16 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.my_restaurant.model.Credentials;
+import it.uniroma3.siw.my_restaurant.model.User;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class UserController {
@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     private GlobalController globalController;
 
-    @Autowired 
+    @Autowired
     private CredentialsService credentialsService;
 
     @GetMapping("/userProfile")
@@ -39,46 +39,58 @@ public class UserController {
         UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
         model.addAttribute("loggedUser", credentials);
-        
+
         return "userProfile.html";
     }
-    
+
+    @GetMapping("/admin/allUsers")
+    public String getUserList(Model model) {
+        UserDetails userDetails = this.globalController.getUser();
+        Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+        List<User> users = this.userService.getAllUsersExceptCurrent(credentials);
+        
+        model.addAttribute("loggedUser", credentials);
+        model.addAttribute("users", users);
+        return "/admin/showAllUsers.html";
+    }
 
     // @GetMapping("/AllUsers")
     // public String getUsers(Model model) {
-    //     UserDetails userDetails = this.globalController.getUser();
-    //     Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
-    //     List<User> users = this.userService.getAllUsersExceptCurrent(credentials);
+    // UserDetails userDetails = this.globalController.getUser();
+    // Credentials credentials =
+    // this.credentialsService.getCredentials(userDetails.getUsername());
+    // List<User> users = this.userService.getAllUsersExceptCurrent(credentials);
 
-    //     List<Integer> numberReviews = new ArrayList<>();
-    //     for (User user : users) {
-    //         numberReviews.add(user.getReviews().size());
-    //     }
-        
-    //     model.addAttribute("user", credentials);
-    //     model.addAttribute("numberReviews", numberReviews);
-    //     model.addAttribute("users", users);
+    // List<Integer> numberReviews = new ArrayList<>();
+    // for (User user : users) {
+    // numberReviews.add(user.getReviews().size());
+    // }
 
-    //     return "showUsers.html";
+    // model.addAttribute("user", credentials);
+    // model.addAttribute("numberReviews", numberReviews);
+    // model.addAttribute("users", users);
+
+    // return "showUsers.html";
     // }
 
     // @PostMapping("/users/delete/{userId}")
     // public String postDeleteUser(@PathVariable("userId") Long id) {
-    //     this.userService.deleteUser(id);
-    //     return "redirect:/AllUsers";
+    // this.userService.deleteUser(id);
+    // return "redirect:/AllUsers";
     // }
 
     // @PostMapping("delete/currentUser")
     // public String postDeleteCurrentUser(HttpServletRequest request) {
-    //     UserDetails userDetails = this.globalController.getUser();
-    //     Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+    // UserDetails userDetails = this.globalController.getUser();
+    // Credentials credentials =
+    // this.credentialsService.getCredentials(userDetails.getUsername());
 
-    //     this.credentialsService.deleteUser(credentials.getUsername());
+    // this.credentialsService.deleteUser(credentials.getUsername());
 
-    //     request.getSession().invalidate();
-    //     SecurityContextHolder.clearContext();
+    // request.getSession().invalidate();
+    // SecurityContextHolder.clearContext();
 
-    //     return "redirect:/";
+    // return "redirect:/";
     // }
 
 }

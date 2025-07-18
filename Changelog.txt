@@ -1,4 +1,13 @@
 * [F - 17/07/2025]: Changelog.txt : 
+    - reservationSuccessful.html spostata nella directory /user 
+    - aggiunta pagina di successo per l'aggiornamento della prenotazione
+    - aggiunta rotta alla dashboard dell'admin per vedere tutte le prenotazioni
+    - AuthConfiguration.java aggiunte le rotte accessibili solo all'admin
+    - Aggiunta logica in ReservationController.java per vedere tutte le prenotazioni
+    - UserController.java aggiunta logica per mostrare tutti gli utenti registrati eccetto quello che chiede il servizio
+    - Nuove viste per vedere tutti gli utenti e tutte le prenotazioni (showAllUsers, showAllReservation)
+
+* [F - 17/07/2025]: Changelog.txt : 
     - Aggiunto al profilo utente l'email
     - ReservationController.java aggiunta funzionalità per cancellare una prenotazione o aggiornarla
     - Aggiunta form per modificare una prenotazione
