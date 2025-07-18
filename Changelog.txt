@@ -1,4 +1,15 @@
 * [F - 17/07/2025]: Changelog.txt : 
+    - Aggiunta vista showUserReservation.html per vedere tutte le prenotazioni di un utente
+        specifico da parte dell'ADMIN
+    - Aggiornata vista showAllUsers.html, possibile rimuovere anche gli utenti, e possibile vedere le prenotazioni
+        dello specifico utente
+    - AuthConfiguration.java aggiunti path per rimuovere utente e prenotazione di uno specifico utente da 
+        parte dell'ADMIN
+    - UserController.java aggiunta logica per rimuovere un utente
+    - ReservationController.java aggiunta logica per vedere le prenotazioni di un utente da parte dell'ADMIN e cancellazione
+        delle stesse
+
+* [F - 17/07/2025]: Changelog.txt : 
     - Rimossa classe Table.java e corrispettivi
 
 * [F - 17/07/2025]: Changelog.txt : 

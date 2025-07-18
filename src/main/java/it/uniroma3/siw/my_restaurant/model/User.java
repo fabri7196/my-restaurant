@@ -1,11 +1,14 @@
 package it.uniroma3.siw.my_restaurant.model;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -32,6 +35,9 @@ public class User {
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Credentials credentials;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations;
 
     public String getName() {
         return name;

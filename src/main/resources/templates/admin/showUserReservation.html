@@ -1,0 +1,47 @@
+<html>
+
+<head th:replace="fragments/common.html :: headerfiles(title='Prenotazioni | MyRestaurant')"></head>
+
+<body>
+	<header th:replace="fragments/common.html :: navbar"></header>
+	<!-- END NAV -->
+	<div class="container_body container">
+		<section class="hero is-small is-info p-4">
+			<div class="hero-body">
+				<p class="title" th:text="${'Lista prenotazioni di ' + user.name + ' ' + user.surname}"></p>
+				<p class="subtitle">
+					Tutte le prenotazioni dell'utente
+				</p>
+			</div>
+		</section>
+
+		<section class="section p-0">
+			<div class="box prenotazioni-box">
+				<a  th:if="${!reservationList.empty}" th:each="reservation : ${reservationList}" class="box prenotazioni-item-box">
+					<div class="media">
+						<div class="media-left">
+							<div class="container">
+								<p class="subtitle is-6 mb-0" th:text="${{ 'Recapito ' + reservation.phoneNumber}}">numero telefono</p>
+								<p class="subtitle is-6" th:text="${{'Il ' + reservation.dateOfReservation + ' alle ore ' +reservation.time}}">Il _giorno_ alle ore _orario_</p>
+							</div>
+						</div>
+						<div class="media-content has-text-right">
+							<p class="title is-5 mb-1" th:text="${reservation.numberOfPerson + ' persone'}">4 persone</p>
+                            
+							<form class="mt-0" method="post" th:action="@{'/admin/AllUsers/' + ${user.id} + '/reservationUser/' + ${reservation.id} + '/delete'}">
+								<button type="submit" class="button is-rounded is-small is-danger">Cancella</button>
+							</form>
+						</div>
+						<div class="media-right">
+							<i class="fa-solid fa-chevron-right"></i>
+						</div>
+					</div>
+				</a>
+				<div class="notification is-warning" th:unless="${!reservationList.empty}">Non ci sono prenotazioni effettuate</div>
+			</div>
+		</section>
+	</div>
+	<footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

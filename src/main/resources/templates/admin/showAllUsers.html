@@ -19,8 +19,7 @@
 
 		<section class="section p-0">
 			<div class="box prenotazioni-box">
-                <!-- th:href="@{'/admin/' + ${credential.user.id} + '/allPrenotazioni'}" -->
-				<a href="" th:each="user : ${users}" class="box user-item-box">
+				<a th:each="user : ${users}" class="box user-item-box" th:href="@{'/admin/AllUsers/' + ${user.id} + '/reservationUser'}">
 					<div class="media">
 						<div class="media-left">
 							<div class="container">
@@ -31,8 +30,7 @@
 							</div>
 						</div>
 						<div class="media-content has-text-right">
-                            <!-- th:action="@{'/admin/allUsers/'+ ${credential.username} + '/delete'}" -->
-							<form class="mt-3" method="post" action="">
+							<form class="mt-3" method="post" th:action="@{'/admin/allUsers/'+ ${user.id} + '/delete'}">
 								<button type="submit" class="button is-rounded is-small is-danger">Cancella</button>
 							</form>
 						</div>
@@ -41,6 +39,7 @@
 						</div>
 					</div>
 				</a>
+				<div class="notification is-warning" th:if="${#lists.isEmpty(users)}">Non ci sono utenti registrati</div>
 			</div>
 		</section>
 	</div>

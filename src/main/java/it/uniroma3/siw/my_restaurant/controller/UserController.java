@@ -20,7 +20,6 @@ import it.uniroma3.siw.my_restaurant.model.Credentials;
 import it.uniroma3.siw.my_restaurant.model.User;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -54,6 +53,12 @@ public class UserController {
         return "/admin/showAllUsers.html";
     }
 
+    @PostMapping("/admin/allUsers/{userId}/delete")
+    public String postDeleteUser(@PathVariable("userId") Long id) {
+    this.userService.deleteUser(id);
+    return "redirect:/admin/allUsers";
+    }
+
     // @GetMapping("/AllUsers")
     // public String getUsers(Model model) {
     // UserDetails userDetails = this.globalController.getUser();
@@ -71,12 +76,6 @@ public class UserController {
     // model.addAttribute("users", users);
 
     // return "showUsers.html";
-    // }
-
-    // @PostMapping("/users/delete/{userId}")
-    // public String postDeleteUser(@PathVariable("userId") Long id) {
-    // this.userService.deleteUser(id);
-    // return "redirect:/AllUsers";
     // }
 
     // @PostMapping("delete/currentUser")

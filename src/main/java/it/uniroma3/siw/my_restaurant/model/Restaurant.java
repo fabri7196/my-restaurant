@@ -30,9 +30,6 @@ public class Restaurant {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Menu menu;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Table table;
-	
 	public Long getId() {
 		return this.id;
 	}
@@ -59,13 +56,6 @@ public class Restaurant {
 	}
 	public void setMenu(Menu menu) {
 		this.menu = menu;
-	}
-
-	public Table getTable() {
-		return this.table;
-	}
-	public void setTable(Table table) {
-		this.table = table;
 	}
 
 }

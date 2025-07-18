@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.my_restaurant.controller.validator.ReservationValidator;
 import it.uniroma3.siw.my_restaurant.model.Credentials;
+import it.uniroma3.siw.my_restaurant.model.User;
 import it.uniroma3.siw.my_restaurant.model.Reservation;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.ReservationService;
+import it.uniroma3.siw.my_restaurant.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,6 +37,9 @@ public class ReservationController {
 
     @Autowired
     private ReservationValidator reservationValidator;
+
+	@Autowired
+	private UserService userService;
 
     @GetMapping("/reservation")
 	public String getFormReservation(Model model) {
@@ -142,6 +147,28 @@ public class ReservationController {
 		}
 		
 		return "redirect:/login";
+	}
+
+	@GetMapping("/admin/AllUsers/{id}/reservationUser")
+	public String getAdminShowUserReservation(@PathVariable("id") Long userId, Model model) {
+		UserDetails userDetails = this.globalController.getUser();
+		Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+
+		User user = this.userService.getUser(userId);
+
+		List<Reservation> reservationList = this.reservationService.findAllReservationsOfUser(user);
+
+		model.addAttribute("loggedUser", credentials);
+		model.addAttribute("user", user);
+		model.addAttribute("reservationList", reservationList);
+
+		return "/admin/showUserReservation.html";
+	}
+	
+	@PostMapping("/admin/AllUsers/{uid}/reservationUser/{rid}/delete")
+	public String postUserReservationDelete(@PathVariable("rid") Long reservationId, @PathVariable("uid") Long userId) {
+		this.reservationService.delete(reservationId);
+		return "redirect:/admin/AllUsers/" + userId + "/reservationUser";
 	}
     
 }
