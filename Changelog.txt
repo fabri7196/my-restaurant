@@ -1,4 +1,7 @@
 * [F - 17/07/2025]: Changelog.txt : 
+    - Rimossa classe Table.java e corrispettivi
+
+* [F - 17/07/2025]: Changelog.txt : 
     - reservationSuccessful.html spostata nella directory /user 
     - aggiunta pagina di successo per l'aggiornamento della prenotazione
     - aggiunta rotta alla dashboard dell'admin per vedere tutte le prenotazioni
