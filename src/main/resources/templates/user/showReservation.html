@@ -19,20 +19,32 @@
 
 		<section class="section p-0">
 			<div class="box prenotazioni-box">
-                 <!-- th:href="@{'/user/' + ${prenotazione.id} + '/update'}" -->
-				<a href="" th:if="${!reservationList.empty}" th:each="reservation : ${reservationList}" class="box prenotazioni-item-box">
+				<a th:href="@{'/user/' + ${reservation.id} + '/updateReservation'}" th:if="${!reservationList.empty}" th:each="reservation : ${reservationList}"
+					class="box prenotazioni-item-box">
 					<div class="media">
 						<div class="media-left">
 							<div class="container">
-								<p class="title is-5" th:text="${reservation.user.name + ' ' + reservation.user.surname}">Mario Rossi</p>
-								<p class="subtitle is-6 mb-0" th:text="${{ 'Recapito ' + reservation.phoneNumber}}">NumeroTelefono</p>
-								<p class="subtitle is-6" th:text="${{ 'Il ' + reservation.dateOfReservation}}">Alle ore 21:00</p>
+								<p class="title is-5"
+									th:text="${reservation.user.name + ' ' + reservation.user.surname}">Mario Rossi</p>
+								<p class="subtitle is-6 mb-1 mt-1">
+									<strong>Recapito: </strong>
+									<span th:text="${reservation.phoneNumber}">NumeroTelefono</span>
+								</p>
+								<p class="subtitle is-6 mb-1">
+									<strong>Il</strong>
+									<span th:text="${reservation.dateOfReservation}">17/07/2025</span>
+									<strong>alle</strong>
+									<span th:text="${reservation.time}">21:00</span>
+								</p>
+								<p class="subtitle is-6 mb-1">
+									<strong>Luogo: </strong>
+									<span th:text="${reservation.place}">Interno</span>
+								</p>
 							</div>
 						</div>
 						<div class="media-content has-text-right">
 							<p class="title is-5 mb-1" th:text="${reservation.numberOfPerson + ' persone'}">4 persone</p>
-                            <!-- th:action="@{'/user/'+ ${prenotazione.id} + '/delete'}" -->
-							<form class="mt-0" method="post" action="">
+							<form class="mt-0" method="post" th:action="@{'/user/'+ ${reservation.id} + '/delete'}">
 								<button type="submit" class="button is-rounded is-small is-danger">Cancella</button>
 							</form>
 						</div>
@@ -41,7 +53,8 @@
 						</div>
 					</div>
 				</a>
-				<div class="notification is-warning" th:unless="${!reservationList.empty}">Non ci sono prenotazioni effettuate</div>
+				<div class="notification is-warning" th:unless="${!reservationList.empty}">Non ci sono prenotazioni
+					effettuate</div>
 			</div>
 		</section>
 	</div>

@@ -16,4 +16,6 @@ public interface UserRepository extends CrudRepository<User, Long>{
     @Query("SELECT u FROM User u WHERE u.credentials != :credentials")
     public List<User> getAllUsersExceptCurrent(@Param("credentials")Credentials credentials);
 
+    public User findByEmail(String email);
+
 }

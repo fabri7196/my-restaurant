@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.my_restaurant.model.User;
+import it.uniroma3.siw.my_restaurant.controller.validator.ReservationValidator;
 import it.uniroma3.siw.my_restaurant.model.Reservation;
 import it.uniroma3.siw.my_restaurant.repository.ReservationRepository;
 
@@ -24,14 +25,22 @@ public class ReservationService {
 		this.reservationRepository.deleteById(id);
 	}
 
-	// public void update(Prenotazione prenotazione, Long id) {
-	// 	prenotazione.setId(id);
-	// 	prenotazioneRepository.save(prenotazione);		
-	// }
+	public void update(Reservation reservation, Long id) {
+		reservation.setId(id);
+		this.reservationRepository.save(reservation);	
+	}
 	
-	// VERIFICARE SE FUNZIONA 
-	public Reservation alreadyExists(Reservation reservation, User loggedUser) {
-		return this.reservationRepository.findByDateOfReservationAndUser(reservation.getDateOfReservation(), loggedUser);
+	public Reservation alreadyExists(Reservation reservation, User loggedUser, Long excludeId) {
+		Reservation reservationOfUser = this.reservationRepository.findByDateOfReservationAndUser(reservation.getDateOfReservation(), loggedUser);
+    
+		if(reservationOfUser == null)
+			return null;
+        
+		if (!reservationOfUser.getId().equals(excludeId)) {
+            return reservationOfUser;
+        }
+    	return null;
+
 	}
 
 	public Reservation findById(Long id) {
@@ -60,7 +69,7 @@ public class ReservationService {
 
 	public boolean isReservationPossible(LocalDate date, String place, int numberOfPeopleToAdd) {
     	int currentReservations = reservationRepository.getTotalPeopleReservedByDateAndPlace(date, place);
-    	return (currentReservations + numberOfPeopleToAdd) <= 30;
+    	return (currentReservations + numberOfPeopleToAdd) <= ReservationValidator.CAPIENZA_MAX_ESTERNA;
 	}	
 
 }

@@ -78,7 +78,11 @@ a {
 }
 
 .media{
-	align-items: center !important;
+	align-items: end !important;
+}
+
+.media-left {
+    align-self: center;
 }
 
 a:hover{

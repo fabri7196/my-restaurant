@@ -3,6 +3,9 @@ package it.uniroma3.siw.my_restaurant.controller.validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import it.uniroma3.siw.my_restaurant.model.User;
+import it.uniroma3.siw.my_restaurant.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,6 +13,9 @@ public class UserValidator implements Validator {
 
 	final Integer MAX_NAME_SURNAME_LENGTH = 60;
 	final Integer MIN_NAME_SURNAME_LENGTH = 2;
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -31,6 +37,10 @@ public class UserValidator implements Validator {
 		if (surname != null) {
 			if (surname.trim().length() < MIN_NAME_SURNAME_LENGTH || surname.trim().length() > MAX_NAME_SURNAME_LENGTH)
 			errors.rejectValue("surname", "size.user.cognome");
+		}
+
+		if (this.userService.getUserByEmail(user.getEmail()) != null) {
+			errors.rejectValue("email", "email.duplicato");
 		}
 		
 	}

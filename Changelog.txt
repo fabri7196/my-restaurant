@@ -1,3 +1,19 @@
+* [F - 17/07/2025]: Changelog.txt : 
+    - Aggiunto al profilo utente l'email
+    - ReservationController.java aggiunta funzionalità per cancellare una prenotazione o aggiornarla
+    - Aggiunta form per modificare una prenotazione
+    - AuthConfiguration.java aggiunte rotte con permessi per profilo e aggiornamento prenotazione
+    - showReservation.html migliorato style e aggiunti riferimenti per la modifica e la cancellazione
+    - dashboard.html aggiunto riferimento per visualizzare il profilo utente
+    - messages.properties aggiunto messaggio errore per email già utilizzata
+    - UserValidator aggiunto al validator la gestione dell'email duplicata
+    - ReservationValidator modificati metodi non funzionanti, modificato il reservation.duplicato
+        dava problemi per la stessa data.
+    - UserRepository e Userservice aggiunta ricerca utente in base all'email
+    - ReservationService aggiunto update e modificato metodo alreadyExists (Per fixare la possibilità di aggiornare
+        la prenotazione senza errori sulla data)
+    - formRegisterUser email è un valore obbligatorio ora
+
 * [F - 17/07/2025]: Changelog.txt, UserController.java :
     - Aggiunta rotta in UserController per vedere il profilo utente (views userProfile.html)
     - Aggiunto riferimento all'ancora visualizza profilo

@@ -62,15 +62,17 @@ public class ReservationValidator implements Validator {
         UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
 
-		if (this.reservationService.alreadyExists(reservation, credentials.getUser()) != null)
+        Long excludeId = reservation.getId();
+
+		if (this.reservationService.alreadyExists(reservation, credentials.getUser(), excludeId) != null)
 			errors.rejectValue("dateOfReservation", "reservation.duplicato");
 
         if(reservation.getPlace().equals(Reservation.ESTERNO_POSTO)) {
-            if (!this.reservationService.isReservationPossible(dateOfReservation, reservation.getPlace(), CAPIENZA_MAX_ESTERNA))
+            if (!this.reservationService.isReservationPossible(dateOfReservation, reservation.getPlace(), reservation.getNumberOfPerson()))
                 errors.rejectValue("numberOfPerson", "reservation.completeExtern");
         }
         else {
-            if (!this.reservationService.isReservationPossible(dateOfReservation, reservation.getPlace(), CAPIENZA_MAX_INTERNA))
+            if (!this.reservationService.isReservationPossible(dateOfReservation, reservation.getPlace(), reservation.getNumberOfPerson()))
                 errors.rejectValue("numberOfPerson", "reservation.completeIntern");
         }
 
