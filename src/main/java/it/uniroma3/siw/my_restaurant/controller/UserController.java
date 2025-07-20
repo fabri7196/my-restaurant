@@ -91,7 +91,10 @@ public class UserController {
         }
 
         credentials.setPassword(form.getNewPassword());
-        this.credentialsService.saveCredentials(credentials, credentials.getRole());
+        if(credentials.getRole().equals(Credentials.DEFAULT_ROLE))
+            this.credentialsService.saveCredentials(credentials, Credentials.DEFAULT_ROLE);
+        else
+            this.credentialsService.saveCredentials(credentials, Credentials.ADMIN_ROLE);
 
         return "changePasswordSuccessful.html";
     }

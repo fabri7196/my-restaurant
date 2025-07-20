@@ -1,4 +1,7 @@
 * [F - 20/07/2025]: Changelog.txt : 
+    - Fixato errore sul cambio password in UserController.java , diventavano tutti ADMIN gli utenti base
+
+* [F - 20/07/2025]: Changelog.txt : 
     - messages.properties aggiunti messaggi errori per la form cambio password
     - Creata form per il cambio password e il successo
     - userProfile.html aggiunta rotta sul modifica password
