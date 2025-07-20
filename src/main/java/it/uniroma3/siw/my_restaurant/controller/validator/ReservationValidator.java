@@ -21,7 +21,7 @@ public class ReservationValidator implements Validator {
     public static final int MAX_ORARIO_PRANZO = 14;
     public static final int MIN_ORARIO_PRANZO = 12;
 
-    final int MAX_ORARIO_CENA = 21;
+    final int MAX_ORARIO_CENA = 22;
     final int MIN_ORARIO_CENA = 18;
 
     public static final int CAPIENZA_MAX_ESTERNA = 30;
