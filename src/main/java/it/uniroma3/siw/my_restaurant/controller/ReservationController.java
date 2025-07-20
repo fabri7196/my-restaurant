@@ -88,6 +88,14 @@ public class ReservationController {
 
 	@PostMapping("/user/{id}/delete")
 	public String postReservationDelete(@PathVariable("id") Long reservationId) {
+		UserDetails userDetails = this.globalController.getUser();
+		Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+		Reservation reservation = this.reservationService.findById(reservationId);
+
+		if (!reservation.getUser().getId().equals(credentials.getUser().getId())) {
+        	return "error/403"; 
+    	}
+
 		this.reservationService.delete(reservationId);
 		return "redirect:/user/allReservation";
 	}
@@ -109,7 +117,7 @@ public class ReservationController {
 		return "/updateReservation.html";
 	}
 	
-	@PostMapping("user/{id}/updateReservation")
+	@PostMapping("/user/{id}/updateReservation")
 	public String postUpdateReservationForm(@Valid @ModelAttribute("reservation") Reservation updateReservation, 
 				BindingResult bindingResult, @PathVariable("id") Long reservationId, Model model) {
 
@@ -132,6 +140,8 @@ public class ReservationController {
 
 		return "/updateReservation.html";
 	}
+
+//	_______ PARTE ADMIN ________
 
 	@GetMapping("/admin/allReservation")
 	public String getShowListAllReservations(Model model) {
@@ -179,4 +189,41 @@ public class ReservationController {
 		return "redirect:/admin/AllUsers/" + userId + "/reservationUser";
 	}
     
+	@GetMapping("/admin/{id}/updateReservation")
+	public String getUpdateReservationFormAdmin(@PathVariable("id") Long reservationId, Model model) {
+		UserDetails userDetails = this.globalController.getUser();
+		Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+
+		Reservation reservation = this.reservationService.findById(reservationId);
+		
+		model.addAttribute("loggedUser", credentials);
+		model.addAttribute("reservation", reservation);
+
+		return "/updateReservation.html";
+	}
+
+	@PostMapping("/admin/{id}/updateReservation")
+	public String postUpdateReservationFormAdmin(@Valid @ModelAttribute("reservation") Reservation updateReservation, 
+				BindingResult bindingResult, @PathVariable("id") Long reservationId, Model model) {
+
+		UserDetails userDetails = this.globalController.getUser();
+        Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+		model.addAttribute("loggedUser", credentials);
+
+        if (updateReservation.getPlace().equals(Reservation.INTERNO_POSTO)) 
+			updateReservation.setPlace(Reservation.INTERNO_POSTO);
+		else 
+			updateReservation.setPlace(Reservation.ESTERNO_POSTO);
+
+        this.reservationValidator.validate(updateReservation, bindingResult);
+
+		if (!bindingResult.hasErrors()) {
+			updateReservation.setUser(credentials.getUser());
+            this.reservationService.update(updateReservation, reservationId);
+			return "/reservationUpdateSuccessful.html";
+		}
+
+		return "/updateReservation.html";
+	}
+
 }

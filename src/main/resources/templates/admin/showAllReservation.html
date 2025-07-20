@@ -19,7 +19,7 @@
 
 		<section class="section p-0">
 			<div class="box prenotazioni-box">
-				<a  th:if="${!reservationList.empty}" th:each="reservation : ${reservationList}" class="box prenotazioni-item-box">
+				<a  th:if="${!reservationList.empty}" th:each="reservation : ${reservationList}" class="box prenotazioni-item-box" th:href="@{'/admin/' + ${reservation.id} + '/updateReservation'}">
 					<div class="media">
 						<div class="media-left">
 							<div class="container">
