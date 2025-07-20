@@ -30,8 +30,7 @@
 						</div>
 						<div class="media-content has-text-right">
 							<p class="title is-5 mb-1" th:text="${reservation.numberOfPerson + ' persone'}">4 persone</p>
-                            <!-- th:action="@{'/admin/'+ ${prenotazione.id} + '/delete'}" -->
-							<form class="mt-0" method="post" action="">
+							<form class="mt-0" method="post" th:action="@{'/admin/allReservation/' + ${reservation.id} + '/delete'}">
 								<button type="submit" class="button is-rounded is-small is-danger">Cancella</button>
 							</form>
 						</div>

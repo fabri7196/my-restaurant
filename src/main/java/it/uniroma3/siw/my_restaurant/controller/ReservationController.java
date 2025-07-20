@@ -23,6 +23,7 @@ import it.uniroma3.siw.my_restaurant.service.ReservationService;
 import it.uniroma3.siw.my_restaurant.service.UserService;
 import jakarta.validation.Valid;
 
+
 @Controller
 public class ReservationController {
 
@@ -48,7 +49,7 @@ public class ReservationController {
 
 		model.addAttribute("loggedUser", credentials);
 		model.addAttribute("reservation", new Reservation());
-		return "/user/formReservation.html";
+		return "/formReservation.html";
 	}
 
 	@PostMapping("/reservation")
@@ -56,6 +57,7 @@ public class ReservationController {
 
         UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+		model.addAttribute("loggedUser", credentials);
 
 		reservation.setUser(credentials.getUser());
         if (reservation.getPlace().equals(Reservation.INTERNO_POSTO)) 
@@ -67,11 +69,10 @@ public class ReservationController {
 
 		if (!bindingResult.hasErrors()) {
             this.reservationService.save(reservation);
-			return "/user/reservationSuccessful.html";
+			return "/reservationSuccessful.html";
 		}
 
-		model.addAttribute("loggedUser", credentials);
-		return "/user/formReservation.html";
+		return "/formReservation.html";
 	}
 
 	@GetMapping("/user/allReservation")
@@ -105,7 +106,7 @@ public class ReservationController {
 		model.addAttribute("loggedUser", credentials);
 		model.addAttribute("reservation", reservation);
 
-		return "/user/updateReservation.html";
+		return "/updateReservation.html";
 	}
 	
 	@PostMapping("user/{id}/updateReservation")
@@ -114,6 +115,7 @@ public class ReservationController {
 
 		UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
+		model.addAttribute("loggedUser", credentials);
 
         if (updateReservation.getPlace().equals(Reservation.INTERNO_POSTO)) 
 			updateReservation.setPlace(Reservation.INTERNO_POSTO);
@@ -125,11 +127,10 @@ public class ReservationController {
 		if (!bindingResult.hasErrors()) {
 			updateReservation.setUser(credentials.getUser());
             this.reservationService.update(updateReservation, reservationId);
-			return "/user/reservationUpdateSuccessful.html";
+			return "/reservationUpdateSuccessful.html";
 		}
 
-		model.addAttribute("loggedUser", credentials);
-		return "/user/updateReservation.html";
+		return "/updateReservation.html";
 	}
 
 	@GetMapping("/admin/allReservation")
@@ -148,6 +149,13 @@ public class ReservationController {
 		
 		return "redirect:/login";
 	}
+
+	@PostMapping("/admin/allReservation/{id}/delete")
+	public String postAllReservationDelete(@PathVariable("id") Long reservationId) {
+		this.reservationService.delete(reservationId);
+		return "redirect:/admin/allReservation";
+	}
+	
 
 	@GetMapping("/admin/AllUsers/{id}/reservationUser")
 	public String getAdminShowUserReservation(@PathVariable("id") Long userId, Model model) {
