@@ -38,8 +38,12 @@ public class CredentialsService {
     }
 
     @Transactional
-    public Credentials saveCredentials(Credentials credentials) {
-        credentials.setRole(Credentials.DEFAULT_ROLE);
+    public Credentials saveCredentials(Credentials credentials, String role) {
+        if (role == Credentials.DEFAULT_ROLE)
+            credentials.setRole(Credentials.DEFAULT_ROLE);
+        else 
+            credentials.setRole(Credentials.ADMIN_ROLE);
+            
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
     }

@@ -41,6 +41,27 @@ public class AuthenticationController {
 		model.addAttribute("credentials", new Credentials());
 		return "formRegisterUser.html";
 	}
+
+	@PostMapping(value = "/register")
+    public String postRegisterUser(@Valid @ModelAttribute("user") User user,
+                 BindingResult userBindingResult, @Valid
+                 @ModelAttribute("credentials") Credentials credentials,
+                 BindingResult credentialsBindingResult,
+                 Model model) {
+		
+		this.credentialsValidator.validate(credentials, credentialsBindingResult);
+		this.userValidator.validate(user, userBindingResult);
+		
+		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
+        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+			this.userService.saveUser(user);
+            credentials.setUser(user);
+            this.credentialsService.saveCredentials(credentials, Credentials.DEFAULT_ROLE);
+            model.addAttribute("user", user);
+            return "registrationSuccessful.html";
+        }
+        return "formRegisterUser.html";
+    }
 	
 	@GetMapping(value = "/login") 
 	public String getShowLoginForm (Model model) {
@@ -72,25 +93,5 @@ public class AuthenticationController {
         
 	// 	return "index.html";
     // }
-
-	@PostMapping(value = "/register")
-    public String postRegisterUser(@Valid @ModelAttribute("user") User user,
-                 BindingResult userBindingResult, @Valid
-                 @ModelAttribute("credentials") Credentials credentials,
-                 BindingResult credentialsBindingResult,
-                 Model model) {
-		
-		this.credentialsValidator.validate(credentials, credentialsBindingResult);
-		this.userValidator.validate(user, userBindingResult);
-		
-		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
-        if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-			this.userService.saveUser(user);
-            credentials.setUser(user);
-            this.credentialsService.saveCredentials(credentials);
-            model.addAttribute("user", user);
-            return "registrationSuccessful.html";
-        }
-        return "formRegisterUser.html";
-    }
+	
 }

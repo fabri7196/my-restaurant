@@ -8,7 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +18,13 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.my_restaurant.controller.validator.ChangePasswordFormValidator;
+import it.uniroma3.siw.my_restaurant.dto.ChangePasswordForm;
 import it.uniroma3.siw.my_restaurant.model.Credentials;
 import it.uniroma3.siw.my_restaurant.model.User;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.UserService;
+
 
 @Controller
 public class UserController {
@@ -32,6 +37,9 @@ public class UserController {
 
     @Autowired
     private CredentialsService credentialsService;
+
+    @Autowired
+    private ChangePasswordFormValidator changePasswordFormValidator;
 
     @GetMapping("/userProfile")
     public String getUserProfile(Model model) {
@@ -58,6 +66,36 @@ public class UserController {
     this.userService.deleteUser(id);
     return "redirect:/admin/allUsers";
     }
+
+     @GetMapping("/userProfile/changePass")
+    public String getFormNewPass(Model model) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+        model.addAttribute("ChangePasswordForm", new ChangePasswordForm());
+        model.addAttribute("loggedUser", credentials);
+        return "changePassword.html";
+    }
+
+    @PostMapping("/userProfile/changePass/success")
+    public String postFormNewPass(@Valid @ModelAttribute("ChangePasswordForm") ChangePasswordForm form,
+            BindingResult bindingResult, Model model) {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+        model.addAttribute("loggedUser", credentials);
+
+        this.changePasswordFormValidator.validate(form, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "changePassword.html";
+        }
+
+        credentials.setPassword(form.getNewPassword());
+        this.credentialsService.saveCredentials(credentials, credentials.getRole());
+
+        return "changePasswordSuccessful.html";
+    }
+    
 
     // @GetMapping("/AllUsers")
     // public String getUsers(Model model) {

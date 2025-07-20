@@ -1,3 +1,13 @@
+* [F - 20/07/2025]: Changelog.txt : 
+    - messages.properties aggiunti messaggi errori per la form cambio password
+    - Creata form per il cambio password e il successo
+    - userProfile.html aggiunta rotta sul modifica password
+    - AuthConfiguration aggiunti path per i permessi
+    - CredentialsService modificato metodo salva utente che mantiente il ruolo precedente dell'utente, o se nuovo 
+        lo setta a DEFAULT.
+    - UserController aggiunta logica per il cambio password
+    - Creati ChangePasswordFormValidator e ChangePasswordForm dto per la form del cambio password
+
 * [F - 17/07/2025]: Changelog.txt : 
     - Aggiunta vista showUserReservation.html per vedere tutte le prenotazioni di un utente
         specifico da parte dell'ADMIN
