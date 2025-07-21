@@ -26,11 +26,21 @@
 				<p class="subtitle is-6 has-text-white">Prenota subito il tuo tavolo e vieni a trovarci</p>
 			</div>
 			<section class="section notification p-4">
-				<div class="media is-mobile box">
+				<div class="media is-mobile box is-flex is-justify-content-space-between is-align-items-center">
 					<div class="media-left">
 						<p class="title is-5">Pranzo</p>
-						<p class="subtitle is-6">Dalle ore 12 alle ore 14, menu alla carta e fisso</p>
+						<p class="subtitle is-6">Dalle ore 12 alle ore 14, menu alla carta</p>
 					</div>
+					<div class="media-right is-flex is-flex-direction-column is-align-items-end">
+						<a th:href="@{/showMenuLunch}" class="is-size-7"
+							style="color: lightgray; text-decoration: none;">menu</a>
+						<form th:action="@{/admin/deleteMenuLunch}" method="post" th:if="${loggedUser != null and loggedUser.role == 'ADMIN'}" style="display: inline;">
+    						<button type="submit" class="is-size-7 btn btn-link p-0" style="color: lightgray; text-decoration: none; background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
+        						rimuovi menu
+    						</button>
+						</form>
+					</div>
+	
 				</div>
 				<div class="media box">
 					<div class="media-left">
@@ -38,10 +48,19 @@
 						<p class="subtitle is-6">Dalle ore 18, spritz e buffet illimitato</p>
 					</div>
 				</div>
-				<div class="media box">
+				<div class="media is-mobile box is-flex is-justify-content-space-between is-align-items-center">
 					<div class="media-left">
 						<p class="title is-5">Cena</p>
 						<p class="subtitle is-6">Dalle ore 20 alle ore 22, menu alla carta</p>
+					</div>
+					<div class="media-right is-flex is-flex-direction-column is-align-items-end">
+						<a th:href="@{/showMenuDinner}" class="is-size-7"
+							style="color: lightgray; text-decoration: none;">menu</a>
+						<form th:action="@{/admin/deleteMenuDinner}" method="post" th:if="${loggedUser != null and loggedUser.role == 'ADMIN'}" style="display: inline;">
+    						<button type="submit" class="is-size-7 btn btn-link p-0" style="color: lightgray; text-decoration: none; background: none; border: none; padding: 0; font: inherit; cursor: pointer;">
+        						rimuovi menu
+    						</button>
+						</form>
 					</div>
 				</div>
 			</section>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common.html :: headerfiles(title='Aggiungi Piatto | MyRestaurant')">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header th:replace="fragments/common.html :: navbar"></header>
+
+    <div class="container_body container">
+        <section class="section p-0">
+            <div class="box eb-box-auth mt-0">
+                <p class="title is-4">Aggiungi un nuovo piatto</p>
+                <hr></hr>
+
+                <form th:action="@{/admin/addMenuItemLunchSuccess}" method="POST" th:object="${menuItem}">
+
+                    <!-- Pasto -->
+                    <!-- <div class="field">
+                        <label class="label">Pasto</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select th:field="*{meal}">
+                                    <option value="" disabled selected>Scegli pasto</option>
+                                    <option value="Pranzo">Pranzo</option>
+                                    <option value="Cena">Cena</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="help" th:if="${#fields.hasErrors('meal')}" th:errors="*{meal}">Errore</p>
+                    </div> -->
+
+                    <!-- Nome -->
+                    <div class="field">
+                        <label class="label">Nome piatto</label>
+                        <div class="control">
+                            <input class="input" th:field="*{name}" type="text" placeholder="Nome del piatto" autocomplete="off">
+                        </div>
+                        <p class="help" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errore</p>
+                    </div>
+
+                    <!-- Descrizione -->
+                    <div class="field">
+                        <label class="label">Descrizione (ingredienti)</label>
+                        <div class="control">
+                            <textarea class="textarea" th:field="*{description}" placeholder="Ingredienti..." autocomplete="off"></textarea>
+                        </div>
+                        <p class="help" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Errore</p>
+                    </div>
+
+                    <!-- Prezzo -->
+                    <div class="field">
+                        <label class="label">Prezzo (€)</label>
+                        <div class="control">
+                            <input class="input" th:field="*{price}" type="number" step="0.01" placeholder="Prezzo" autocomplete="off">
+                        </div>
+                        <p class="help" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Errore</p>
+                    </div>
+
+                    <input type="hidden" th:field="*{category}" />
+
+                    <!-- Submit -->
+                    <button type="submit" class="button is-fullwidth is-info mt-5 is-rounded">Aggiungi piatto</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="fragments/common.html :: footer"></footer>
+</body>
+
+</html>

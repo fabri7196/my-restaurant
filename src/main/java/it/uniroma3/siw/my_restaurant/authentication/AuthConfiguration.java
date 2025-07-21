@@ -53,13 +53,15 @@ import javax.sql.DataSource;
                 .authorizeHttpRequests(requests -> requests
 //                .requestMatchers("/**").permitAll()
                         // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/register", "/css/**", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/register", "/css/**", "/images/**", "/showMenuLunch", "/showMenuDinner").permitAll()
                         // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                         .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reservation", "/user/allReservation", "/user/*/updateReservation", "/userProfile", "/userProfile/changePass").authenticated()
                         .requestMatchers(HttpMethod.POST, "/reservation", "/user/*/delete", "/user/*/updateReservation", "/userProfile/changePass/success").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/admin/allReservation", "/admin/allUsers", "/admin/AllUsers/*/reservationUser", "/admin/*/updateReservation").hasAnyAuthority(ADMIN_ROLE)
-                        .requestMatchers(HttpMethod.POST, "/admin/allUsers/{userId}/delete", "/admin/AllUsers/*/reservationUser/*/delete", "/admin/allReservation/*/delete", "/admin/*/updateReservation").hasAnyAuthority(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/admin/allReservation", "/admin/allUsers", "/admin/AllUsers/*/reservationUser", 
+                        "/admin/*/updateReservation", "/admin/addMenuItemLunch", "/admin/addMenuItemDinner").hasAnyAuthority(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.POST, "/admin/allUsers/{userId}/delete", "/admin/AllUsers/*/reservationUser/*/delete", 
+                        "/admin/allReservation/*/delete", "/admin/*/updateReservation", "/admin/addMenuItemLunchSuccess", "/admin/addMenuItemDinnerSuccess", "/admin/deleteMenuDinner", "/admin/deleteMenuLunch").hasAnyAuthority(ADMIN_ROLE)
                         // tutti gli utenti autenticati possono accedere alle pagine rimanenti 
                         .anyRequest().authenticated()).formLogin(login -> login
                         .loginPage("/login")

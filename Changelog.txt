@@ -1,3 +1,6 @@
+* [F - 21/07/2025]: Changelog.txt : 
+    - Implementata logica per aggiungere piatti(MenuItem) al menu e rimuovere l'intero menu(Pranzo o Cena)
+
 * [F - 20/07/2025]: Changelog.txt : 
     - Fixato errore sul cambio password in UserController.java , diventavano tutti ADMIN gli utenti base
 

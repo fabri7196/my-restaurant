@@ -39,6 +39,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<MenuItem> menuItems;
+
     public String getName() {
         return name;
     }
@@ -72,6 +75,13 @@ public class User {
     }
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     @Override
@@ -110,5 +120,5 @@ public class User {
             return false;
         return true;
     }
-    
+   
 }

@@ -48,7 +48,7 @@ public class Reservation {
 
 	@NotBlank
 	private String phoneNumber;
-	
+
 	public Long getId() {
 		return this.id;
 	}
@@ -97,5 +97,4 @@ public class Reservation {
 	public void setTime(LocalTime time) {
 		this.time = time;
 	}
-
 }
