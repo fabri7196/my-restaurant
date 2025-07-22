@@ -17,6 +17,7 @@
                 <form th:action="@{/admin/addMenuItemDinnerSuccess}" method="POST" th:object="${menuItem}">
 
                     <!-- Pasto -->
+                    <input type="hidden" th:field="*{meal}" value="Cena" />
                     <!-- <div class="field">
                         <label class="label">Pasto</label>
                         <div class="control">
@@ -61,7 +62,11 @@
                     <input type="hidden" th:field="*{category}" />
 
                     <!-- Submit -->
-                    <button type="submit" class="button is-fullwidth is-info mt-5 is-rounded">Aggiungi piatto</button>
+                     <div class="is-flex is-flex-direction-column is-align-items-center mt-5">
+                        <button type="submit" class="button is-info is-rounded mb-3">Aggiungi piatto</button>
+
+                        <a th:href="/showMenuDinner" class="has-text-link">Annulla</a>
+                    </div>
                 </form>
             </div>
         </section>

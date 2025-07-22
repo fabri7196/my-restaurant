@@ -14,7 +14,11 @@
 				<p class="subtitle">
 					Il piatto è stato inserito nel menu.
 				</p>
-				<a class="button is-rounded is-white" th:href="@{/home}">Vai alla dashboard</a>
+				<div class="buttons">
+					<a class="button is-rounded is-white" th:href="@{/home}">Vai alla dashboard</a>
+					<a th:if="${meal.equals('Pranzo')}" class="button is-rounded is-light" th:href="@{/showMenuLunch}">Torna al menu</a>
+					<a th:if="${meal.equals('Cena')}" class="button is-rounded is-light" th:href="@{/showMenuDinner}">Torna al menu</a>
+				</div>
 			</div>
 		</section>
 	</div>

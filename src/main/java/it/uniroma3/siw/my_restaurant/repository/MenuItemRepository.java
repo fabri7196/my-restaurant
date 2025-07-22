@@ -9,6 +9,8 @@ public interface MenuItemRepository extends CrudRepository<MenuItem, Long>{
 
     List<MenuItem> findByMeal(String meal);
 
+    MenuItem findByMealAndName(String meal, String name);
+
     void deleteByMeal(String meal);
 
 }

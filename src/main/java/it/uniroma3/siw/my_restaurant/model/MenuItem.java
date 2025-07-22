@@ -39,7 +39,6 @@ public class MenuItem {
 	private String category;
 
 	//Pranzo o cena
-	@NotBlank
 	private String meal;
 
 	@ManyToOne

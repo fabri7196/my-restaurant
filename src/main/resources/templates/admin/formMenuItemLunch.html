@@ -12,11 +12,13 @@
         <section class="section p-0">
             <div class="box eb-box-auth mt-0">
                 <p class="title is-4">Aggiungi un nuovo piatto</p>
-                <hr></hr>
+                <hr>
+                </hr>
 
                 <form th:action="@{/admin/addMenuItemLunchSuccess}" method="POST" th:object="${menuItem}">
 
                     <!-- Pasto -->
+                     <input type="hidden" th:field="*{meal}" value="Pranzo" />
                     <!-- <div class="field">
                         <label class="label">Pasto</label>
                         <div class="control">
@@ -35,7 +37,8 @@
                     <div class="field">
                         <label class="label">Nome piatto</label>
                         <div class="control">
-                            <input class="input" th:field="*{name}" type="text" placeholder="Nome del piatto" autocomplete="off">
+                            <input class="input" th:field="*{name}" type="text" placeholder="Nome del piatto"
+                                autocomplete="off">
                         </div>
                         <p class="help" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errore</p>
                     </div>
@@ -44,16 +47,19 @@
                     <div class="field">
                         <label class="label">Descrizione (ingredienti)</label>
                         <div class="control">
-                            <textarea class="textarea" th:field="*{description}" placeholder="Ingredienti..." autocomplete="off"></textarea>
+                            <textarea class="textarea" th:field="*{description}" placeholder="Ingredienti..."
+                                autocomplete="off"></textarea>
                         </div>
-                        <p class="help" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Errore</p>
+                        <p class="help" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Errore
+                        </p>
                     </div>
 
                     <!-- Prezzo -->
                     <div class="field">
                         <label class="label">Prezzo (€)</label>
                         <div class="control">
-                            <input class="input" th:field="*{price}" type="number" step="0.01" placeholder="Prezzo" autocomplete="off">
+                            <input class="input" th:field="*{price}" type="number" step="0.01" placeholder="Prezzo"
+                                autocomplete="off">
                         </div>
                         <p class="help" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Errore</p>
                     </div>
@@ -61,7 +67,10 @@
                     <input type="hidden" th:field="*{category}" />
 
                     <!-- Submit -->
-                    <button type="submit" class="button is-fullwidth is-info mt-5 is-rounded">Aggiungi piatto</button>
+                    <div class="is-flex is-flex-direction-column is-align-items-center mt-5">
+                        <button type="submit" class="button is-info is-rounded mb-3">Aggiungi piatto</button>
+                        <a th:href="@{/showMenuLunch}" class="has-text-link">Annulla</a>
+                    </div>
                 </form>
             </div>
         </section>

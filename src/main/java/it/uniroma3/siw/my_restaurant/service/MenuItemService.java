@@ -23,6 +23,10 @@ public class MenuItemService {
         return this.menuItemRepository.findByMeal(meal);
     }
 
+    public MenuItem findByMealAndName(String meal, String name) {
+        return this.menuItemRepository.findByMealAndName(meal, name);
+    }
+
     @Transactional
     public void save(MenuItem menuItem){
         this.menuItemRepository.save(menuItem);

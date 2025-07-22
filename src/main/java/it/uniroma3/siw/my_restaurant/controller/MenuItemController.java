@@ -7,11 +7,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
+import it.uniroma3.siw.my_restaurant.controller.validator.MenuItemValidator;
 import it.uniroma3.siw.my_restaurant.model.Credentials;
 import it.uniroma3.siw.my_restaurant.model.MenuItem;
 import it.uniroma3.siw.my_restaurant.service.CredentialsService;
 import it.uniroma3.siw.my_restaurant.service.MenuItemService;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +26,9 @@ public class MenuItemController {
 
     @Autowired
     private MenuItemService menuItemService;
+
+    @Autowired
+    private MenuItemValidator menuItemValidator;
 
     @Autowired
     private GlobalController globalController;
@@ -42,16 +49,23 @@ public class MenuItemController {
     }
 
     @PostMapping("/admin/addMenuItemLunchSuccess")
-    public String postAddMenuItemLunch(@ModelAttribute("menuItem") MenuItem menuItem, Model model) {
+    public String postAddMenuItemLunch(@Valid @ModelAttribute("menuItem") MenuItem menuItem, BindingResult bindingResult, Model model) {
+        menuItem.setMeal(MenuItem.LUNCH);
         UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
 		model.addAttribute("loggedUser", credentials);
 
-        menuItem.setUser(credentials.getUser());
-        menuItem.setMeal(MenuItem.LUNCH);
-        this.menuItemService.save(menuItem);
-       
-        return "/admin/addMenuItemSuccessful.html";
+        this.menuItemValidator.validate(menuItem, bindingResult);
+
+        if(!bindingResult.hasErrors()) {
+            menuItem.setUser(credentials.getUser());
+            this.menuItemService.save(menuItem);
+
+            model.addAttribute("meal", MenuItem.LUNCH);
+            return "/admin/addMenuItemSuccessful.html";
+        }
+
+        return "/admin/formMenuItemLunch.html";
     }
 
     @GetMapping("/admin/addMenuItemDinner")
@@ -67,16 +81,24 @@ public class MenuItemController {
     }
 
     @PostMapping("/admin/addMenuItemDinnerSuccess")
-    public String postAddMenuItemDinner(@ModelAttribute("menuItem") MenuItem menuItem, Model model) {
+    public String postAddMenuItemDinner(@Valid @ModelAttribute("menuItem") MenuItem menuItem, BindingResult bindingResult, Model model) {
+        menuItem.setMeal(MenuItem.DINNER);
+    
         UserDetails userDetails = this.globalController.getUser();
         Credentials credentials = this.credentialsService.getCredentials(userDetails.getUsername());
 		model.addAttribute("loggedUser", credentials);
 
-        menuItem.setUser(credentials.getUser());
-        menuItem.setMeal(MenuItem.DINNER);
-        this.menuItemService.save(menuItem);
+        this.menuItemValidator.validate(menuItem, bindingResult);
+
+        if(!bindingResult.hasErrors()) {
+            menuItem.setUser(credentials.getUser());
+            this.menuItemService.save(menuItem);
+
+            model.addAttribute("meal", MenuItem.DINNER);
+            return "/admin/addMenuItemSuccessful.html";
+        }
        
-        return "/admin/addMenuItemSuccessful.html";
+        return "/admin/formMenuItemDinner.html";
     }
     
     @GetMapping("/showMenuLunch")
